@@ -1,6 +1,8 @@
 import * as React from 'react';
 
+// Importamos los componentes personaliados
 import NuevoProyecto from '../proyectos/NuevoProyecto';
+import ListadoProyectos from '../proyectos/ListadoProyectos';
 
 const Sidebar = () => {
 
@@ -16,6 +18,7 @@ const Sidebar = () => {
             
             <div className="proyectos">
                 <h2>Tus Proyectos</h2>
+                <ListadoProyectos />
             </div>
         </aside>
     );
