@@ -13,10 +13,10 @@ const ListadoTareas = () => {
     const { proyecto } = proyectosContext;
 
     // Si no hay proyectos seleccionados
-    if (!proyecto) return <h2>Selecciona un proyecto</h2>
+    if (!proyecto) return <h2>Selecciona un proyecto</h2>;
 
     // Array destructuring para extraer el proyecto actual
-    const [proyectoActual] = proyecto
+    const [proyectoActual] = proyecto;
 
     const tareasProyecto = [
         {
