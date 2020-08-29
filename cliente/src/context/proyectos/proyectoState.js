@@ -10,8 +10,8 @@ import {
     ELIMINAR_PROYECTO
 } from '../../types';
 
-import proyectoContext from './proyectoContext';
-import proyectoReducer from './proyectoReducers';
+import ProyectoContext from './proyectoContext';
+import ProyectoReducer from './proyectoReducers';
 
 const ProyectoState = props => {
     // mockeamos los proyectos
@@ -32,7 +32,7 @@ const ProyectoState = props => {
     }
 
     // dispatch para ejecutar las acciones
-    const [state, dispatch] = useReducer(proyectoReducer, initialState)
+    const [state, dispatch] = useReducer(ProyectoReducer, initialState)
 
     // Serie de funciones para el CRUD 
     const mostrarFormulario = () => {
@@ -84,7 +84,7 @@ const ProyectoState = props => {
     }
 
     return (
-        <proyectoContext.Provider
+        <ProyectoContext.Provider
             value={{
                 proyectos: state.proyectos,
                 formulario: state.formulario,
@@ -99,7 +99,7 @@ const ProyectoState = props => {
             }}
         >
             {props.children}
-        </proyectoContext.Provider>
+        </ProyectoContext.Provider>
     )
 }
 

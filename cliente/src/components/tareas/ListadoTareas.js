@@ -1,38 +1,26 @@
 import React, { Fragment, useContext } from 'react'
 // Importamos el contextProyecto
 import proyectoContext from '../../context/proyectos/proyectoContext';
+// Importamos el contextTarea
+import tareaContext from '../../context/tareas/tareaContext';
 
 // Importamos los componentes personalizados
 import Tarea from './Tarea';
 
 const ListadoTareas = () => {
 
-    // Obtenemos el state del proyectos
+    // Obtenemos los useContext de la App
     const proyectosContext = useContext(proyectoContext);
+    const tareasContext = useContext(tareaContext);
     // extraemos el formulario de proyectoContext
     const { proyecto, eliminarProyecto } = proyectosContext;
+    const { tareasproyecto } = tareasContext;
 
     // Si no hay proyectos seleccionados
     if (!proyecto) return <h2>Selecciona un proyecto</h2>;
 
     // Array destructuring para extraer el proyecto actual
     const [proyectoActual] = proyecto;
-
-    const tareasProyecto = [
-        {
-            nombre: 'Elegir Plataforma',
-            estado: true
-        }, {
-            nombre: 'Elegir Colores',
-            estado: false
-        }, {
-            nombre: 'Elegir Plataforma de pago',
-            estado: false
-        }, {
-            nombre: 'Elegir Hosting',
-            estado: false
-        },
-    ];
 
     // Eliminar el proyecto
     const onclickEliminar = () => {
@@ -45,14 +33,14 @@ const ListadoTareas = () => {
 
             <ul className="listado-tareas">
                 {
-                    tareasProyecto.length === 0
+                    tareasproyecto.length === 0
                         ?
                         (
                             <li className="tarea"> <p>No hay tareas</p> </li>
                         )
                         :
                         (
-                            tareasProyecto.map((tarea, index) => (
+                            tareasproyecto.map((tarea, index) => (
                                 <Tarea key={index} tarea={tarea} />
                             ))
                         )
