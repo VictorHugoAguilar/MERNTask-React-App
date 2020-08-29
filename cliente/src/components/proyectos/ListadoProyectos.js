@@ -11,9 +11,12 @@ const ListadoProyectos = () => {
     // Extraemos los proyectos del estate inicial
     const { proyectos, obtenerProyectos } = proyectosContext;
 
+  
+
     // Cargamos los proyectos en el momento de carga de los componentes
     useEffect(() => {
         obtenerProyectos();
+        // eslint-disable-next-line
     }, [])
 
     // Controlamos si existen proyectos
