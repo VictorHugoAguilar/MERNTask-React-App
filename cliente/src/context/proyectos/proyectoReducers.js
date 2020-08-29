@@ -3,7 +3,8 @@ import { act } from "react-dom/test-utils";
 import {
     FORMULARIO_PROYECTO,
     OBTENER_PROYECTOS,
-    AGREGAR_PROYECTO
+    AGREGAR_PROYECTO,
+    VALIDAR_FORMULARIO
 } from '../../types';
 
 export default (state, action) => {
@@ -21,7 +22,14 @@ export default (state, action) => {
         case AGREGAR_PROYECTO:
             return {
                 ...state,
-                proyectos: [ ...state.proyectos, action.payload]
+                proyectos: [...state.proyectos, action.payload],
+                formulario: false, 
+                errorformulario: false
+            }
+        case VALIDAR_FORMULARIO:
+            return {
+                ...state,
+                errorformulario: true
             }
         default:
             return state;

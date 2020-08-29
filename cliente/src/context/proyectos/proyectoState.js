@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 // Importamos los types
 import {    FORMULARIO_PROYECTO, 
             OBTENER_PROYECTOS, 
-            AGREGAR_PROYECTO 
+            AGREGAR_PROYECTO,
+            VALIDAR_FORMULARIO 
 } from '../../types';
 
 import proyectoContext from './proyectoContext';
@@ -22,7 +23,8 @@ const ProyectoState = props => {
     // Configurando el state inicial
     const initialState = {
         formulario: false,
-        proyectos: []
+        proyectos: [],
+        errorformulario : false
     }
 
     // dispatch para ejecutar las acciones
@@ -54,14 +56,23 @@ const ProyectoState = props => {
         })
     }
 
+    // Validar el formulario
+    const mostrarError = () => {
+        dispatch({
+            type: VALIDAR_FORMULARIO
+        })
+    }
+
     return (
         <proyectoContext.Provider
             value={{
                 proyectos: state.proyectos,
                 formulario: state.formulario,
+                errorformulario: state.errorformulario,
                 obtenerProyectos: obtenerProyectos,
                 mostrarFormulario: mostrarFormulario,
-                agregarProyecto: agregarProyecto
+                agregarProyecto: agregarProyecto,
+                mostrarError: mostrarError
             }}
         >
             {props.children}
