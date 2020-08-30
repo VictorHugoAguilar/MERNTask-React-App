@@ -4,9 +4,10 @@ require('dotenv').config({path: 'variables.env'});
  const conectDB = async () => {
     try{
         await mongoose.connect(process.env.DB_MONGO, {
+            useCreateIndex: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useFindAndModify: true
+            useFindAndModify: false
         });
         const conexion = { 
             name: mongoose.connections[0].name,
