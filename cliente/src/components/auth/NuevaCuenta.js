@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 // Importamos los context personalizados
 import AlertaContext from '../../context/alertas/alertaContext';
+// Importamos el context de Auth
+import AuthContext from '../../context/autentificacion/authContext';
 // importamos componentes 
 
 const NuevaCuenta = () => {
@@ -9,6 +11,10 @@ const NuevaCuenta = () => {
     // extraemos las alertas del context
     const alertaContext = useContext(AlertaContext);
     const { alerta, fnMostrarAlerta } = alertaContext;
+
+    // extraemos la auth del context
+    const authContext = useContext(AuthContext);
+    const { fnRegistrarUsuario } = authContext;
 
     // State para iniciar session
     const [usuario, setUsuario] = useState({
@@ -56,6 +62,11 @@ const NuevaCuenta = () => {
         }
 
         // Pasarlo al accion
+        fnRegistrarUsuario({
+             nombre,
+             email,
+             password
+        });
     }
 
     return (

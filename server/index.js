@@ -1,11 +1,14 @@
 const express = require('express');
 const conectDB = require('./config/db');
-
+const cors = require('cors');
 // crear el servidor
 const app = express();
 
 // conectar con la BD
 conectDB();
+
+// Habilitar los cors
+app.use(cors());
 
 // Habilitar exprees.json
 app.use(express.json({ extended: true }));

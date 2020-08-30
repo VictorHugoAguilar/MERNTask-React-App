@@ -27,7 +27,6 @@ function App() {
         </AlertaState>
       </TareaState>
     </ProyectoState>
-
   );
 }
 
