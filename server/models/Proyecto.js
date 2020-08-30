@@ -7,10 +7,8 @@ const ProyectoSchema = mongoose.Schema({
         trim: true
     },
     creador: {
-        type: String,
-        require: true,
-        trim: true,
-        unique: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario'
     },
     registro: {
         type: Date,
