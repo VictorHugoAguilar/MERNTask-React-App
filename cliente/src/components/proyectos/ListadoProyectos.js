@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 // importamos los componentes personlizados
 import Proyecto from './Proyecto';
 // Importamos el context
 import proyectoContext from '../../context/proyectos/proyectoContext';
 
 const ListadoProyectos = () => {
-
     // obtenemos el state del formulario
     const proyectosContext = useContext(proyectoContext);
     // Extraemos los proyectos del estate inicial
@@ -22,9 +22,19 @@ const ListadoProyectos = () => {
 
     return (
         <ul className="listado-proyectos">
-            {proyectos?.map((proyecto, index) => (
-                <Proyecto proyecto={proyecto} key={index} />
-            ))}
+            <TransitionGroup>
+                {proyectos?.map((proyecto) => (
+                    <CSSTransition
+                        key={proyecto.id}
+                        timeout={200}
+                        className="proyecto"
+                    >
+                        <Proyecto
+                            proyecto={proyecto}
+                        />
+                    </CSSTransition>
+                ))}
+            </TransitionGroup>
         </ul>
     );
 }

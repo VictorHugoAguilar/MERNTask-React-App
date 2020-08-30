@@ -1,4 +1,6 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext  } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
 // Importamos el contextProyecto
 import proyectoContext from '../../context/proyectos/proyectoContext';
 // Importamos el contextTarea
@@ -8,7 +10,6 @@ import tareaContext from '../../context/tareas/tareaContext';
 import Tarea from './Tarea';
 
 const ListadoTareas = () => {
-
     // Obtenemos los useContext de la App
     const proyectosContext = useContext(proyectoContext);
     const tareasContext = useContext(tareaContext);
@@ -40,9 +41,19 @@ const ListadoTareas = () => {
                         )
                         :
                         (
-                            tareasproyecto.map((tarea, index) => (
-                                <Tarea key={index} tarea={tarea} />
-                            ))
+                            <TransitionGroup>
+                                {tareasproyecto.map((tarea, index) => (
+                                    <CSSTransition
+                                        key={index}
+                                        timeout={200}
+                                        className="tarea"
+                                    >
+                                        <Tarea
+                                            tarea={tarea}
+                                        />
+                                    </CSSTransition>
+                                ))}
+                            </TransitionGroup>
                         )
                 }
             </ul>

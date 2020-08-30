@@ -20,7 +20,6 @@ const Proyecto = ({ proyecto }) => {
         fnObtenerTareas(id); // obtenemos las tareas asociadas al id
     }
 
-
     return (
         <li>
             <button
