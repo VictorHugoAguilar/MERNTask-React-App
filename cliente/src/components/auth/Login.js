@@ -1,8 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// importamos componentes 
+// Importamos los context personalizados
+import AlertaContext from '../../context/alertas/alertaContext';
+// Importamos el context de Auth
+import AuthContext from '../../context/autentificacion/authContext';
 
-const Login = () => {
+
+const Login = (props) => {
+
+    // extraemos las alertas del context
+    const alertaContext = useContext(AlertaContext);
+    const { alerta, fnMostrarAlerta } = alertaContext;
+
+    // extraemos la auth del context
+    const authContext = useContext(AuthContext);
+    const { mensaje, autenticado, fnInicioSesion } = authContext;
+
+    // En caso que el usuario este registrado o es duplicado
+    useEffect(() => {
+        if (autenticado) {
+            props.history.push('/proyectos');
+        }
+
+        if (mensaje) {
+            fnMostrarAlerta(mensaje.msg, mensaje.categoria);
+        }
+    }, [mensaje, autenticado, props.history]);
 
     // State para iniciar session
     const [usuario, setUsuario] = useState({
@@ -25,17 +48,21 @@ const Login = () => {
     const onSubmit = (e) => {
         // para que no refresque inmediatamente
         e.preventDefault();
-        
+
         // Validar los datos
+        if (email.trim() === '' || password.trim() === '') {
+            fnMostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+        }
 
         // Pasarlo al accion
+        fnInicioSesion({ email, password });
     }
 
     return (
         <div className="form-usuario">
             <div className="contenedor-form sombra-dark">
                 <h1>Iniciar Sesión</h1>
-
+                {alerta && (<div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>)}
                 <form
                     onSubmit={onSubmit}
                 >
@@ -68,7 +95,6 @@ const Login = () => {
                             value="Inciar Sesión" />
                     </div>
                 </form>
-
                 <Link to={'/nueva-cuenta'} className="enlace-cuenta"> Obtener cuenta</Link>
             </div>
         </div>

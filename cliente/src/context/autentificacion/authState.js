@@ -40,7 +40,7 @@ const AuthState = props => {
             });
 
             // Obtener el usuario registrado
-            usuarioAutenticado();
+            fnUsuarioAutenticado();
         } catch (error) {
             console.log(error.response.data.msg);
 
@@ -56,11 +56,11 @@ const AuthState = props => {
     }
 
     // Retorna el usuario autenticado
-    const usuarioAutenticado = async () => {
+    const fnUsuarioAutenticado = async () => {
         const token = localStorage.getItem('token');
 
-        if(token){
-            // TODO: funcion para enviar el token por header
+        if (token) {
+            // Funcion para enviar el token por header
             tokenAuth(token);
         }
 
@@ -70,10 +70,34 @@ const AuthState = props => {
             dispach({
                 type: OBTENER_USUARIO,
                 payload: respuesta.data.usuario
-            }) 
+            })
         } catch (error) {
             dispach({
                 type: LOGIN_ERROR
+            })
+        }
+    }
+
+    // login de usuario
+    const fnInicioSesion = async datos => {
+        try {
+            const respuesta = await clienteAxios.post('/api/auth', datos);
+
+            dispach({
+                type: LOGIN_EXITOSO,
+                payload: respuesta.data
+            })
+
+            // Obtener el usuario autenticado
+            fnUsuarioAutenticado();
+        } catch (error) {
+            const alerta = {
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            }
+            dispach({
+                type: LOGIN_ERROR,
+                payload: alerta
             })
         }
     }
@@ -85,7 +109,9 @@ const AuthState = props => {
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
-                fnRegistrarUsuario: fnRegistrarUsuario
+                fnRegistrarUsuario: fnRegistrarUsuario,
+                fnInicioSesion: fnInicioSesion,
+                fnUsuarioAutenticado: fnUsuarioAutenticado
             }}
         >
             {props.children}

@@ -11,10 +11,6 @@ const authController = require('../controller/authController');
 // Iniciar sesion
 // api/auth
 router.post('/',
-    [
-        check('email', 'Agregar un email valido').isEmail(),
-        check('password', 'El password tiene que ser de 6 dígitos mínimo').isLength({ min: 6 })
-    ],
     authController.autenticarUsuario);
 
 // obtiene el usuario registrado
