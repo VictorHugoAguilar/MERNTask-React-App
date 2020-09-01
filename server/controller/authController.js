@@ -56,3 +56,14 @@ exports.autenticarUsuario = async (req, res) => {
         return res.status(400).json({ok: false, msg: 'Ha ocurrido un error', error: error});
     }
 }
+
+// Controlador para obtener el usuario autenticado
+exports.usuarioAutenticado = async (req, res) => {
+    try {
+        const usuario = await Usuario.findById(req.usuario.id).select('-password');
+        res.json({usuario});
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ok: false, msg: 'Ha ocurrido un error', error: error});
+    }
+}

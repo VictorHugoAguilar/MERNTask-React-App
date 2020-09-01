@@ -4,6 +4,7 @@ import authContext from './authContext';
 import authReducers from './authReducers';
 // importamos cliente axios
 import clienteAxios from '../../config/axios';
+import tokenAuth from '../../config/tokenAuth';
 
 // IMPORTAMOS LOS TYPES
 import {
@@ -37,6 +38,9 @@ const AuthState = props => {
                 type: REGISTRO_EXITOSO,
                 payload: respuesta.data
             });
+
+            // Obtener el usuario registrado
+            usuarioAutenticado();
         } catch (error) {
             console.log(error.response.data.msg);
 
@@ -47,6 +51,29 @@ const AuthState = props => {
             dispach({
                 type: REGISTRO_ERROR,
                 payload: alerta
+            })
+        }
+    }
+
+    // Retorna el usuario autenticado
+    const usuarioAutenticado = async () => {
+        const token = localStorage.getItem('token');
+
+        if(token){
+            // TODO: funcion para enviar el token por header
+            tokenAuth(token);
+        }
+
+        try {
+            const respuesta = await clienteAxios.get('/api/auth');
+            // console.log(respuesta);
+            dispach({
+                type: OBTENER_USUARIO,
+                payload: respuesta.data.usuario
+            }) 
+        } catch (error) {
+            dispach({
+                type: LOGIN_ERROR
             })
         }
     }
