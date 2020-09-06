@@ -25,6 +25,7 @@ const Login = (props) => {
         if (mensaje) {
             fnMostrarAlerta(mensaje.msg, mensaje.categoria);
         }
+    // eslint-disable-next-line
     }, [mensaje, autenticado, props.history]);
 
     // State para iniciar session

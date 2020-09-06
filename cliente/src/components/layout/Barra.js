@@ -11,6 +11,7 @@ const Barra = () => {
 
     useEffect(() => {
         fnUsuarioAutenticado();
+        // eslint-disable-next-line
     }, []);
 
     const cerrarSesion = () => {
