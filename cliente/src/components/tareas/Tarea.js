@@ -8,20 +8,20 @@ const Tarea = ({ tarea }) => {
     const tareasContext = useContext(tareaContext);
     // extraemos las tareas del context
     const { fnEliminarTarea, fnObtenerTareas, 
-        fnObtenerTarea, fnCambioEstado } = tareasContext;
+        fnObtenerTarea, fnModificarTarea } = tareasContext;
 
     // funcion que se ejecuta al presionar el boton de eliminar
     const eliminarTarea = (id) => {
-        fnEliminarTarea(id);
+        fnEliminarTarea(id, tarea.proyecto);
 
         // refrescamos los datos en la pantalla
-        fnObtenerTareas(tarea.proyectoId);
+        fnObtenerTareas(tarea.proyecto);
     }
 
     // funcion para cambiar el estado de la tarea
     const chageEstado = (tarea) => {
         tarea.estado = !tarea.estado;
-        fnCambioEstado(tarea);
+        fnModificarTarea(tarea);
     }
 
     // Seleccionamos la tarea actual
@@ -67,7 +67,7 @@ const Tarea = ({ tarea }) => {
                 <button
                     type="button"
                     className="btn btn-secundario"
-                    onClick={() => { eliminarTarea(tarea.id) }}
+                    onClick={() => { eliminarTarea(tarea._id) }}
                 >Eliminar</button>
             </div>
         </li>

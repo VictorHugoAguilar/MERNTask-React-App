@@ -69,7 +69,7 @@ const FormTarea = () => {
         }
 
         // Obtener las tareas
-        fnObtenerTareas(proyectoActual.id);
+        fnObtenerTareas(proyectoActual._id);
 
         // reiniciar el form
         setTarea({

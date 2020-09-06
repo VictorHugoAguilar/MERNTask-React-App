@@ -7,7 +7,6 @@ import {
     AGREGAR_TAREA,
     VALIDAR_TAREA,
     ELIMINAR_TAREA,
-    ESTADO_TAREA,
     TAREA_ACTUAL,
     MODIFICAR_TAREA,
     LIMPIAR_TAREA
@@ -47,12 +46,11 @@ const TareaState = props => {
     // Agregar tarea al proyecto seleccionado
     const fnAgregarTarea = async tarea => {
         try {
-            const resultado = await clienteAxios.post('/api/tareas', tarea);
-            // console.log(resultado);
+           const resultado = await clienteAxios.post('/api/tareas', tarea);
             // Insertamos la tarea al estate
             dispatch({
                 type: AGREGAR_TAREA,
-                payload: tarea
+                payload: resultado.data.tarea
             });
         } catch (error) {
             console.error(error);
@@ -67,19 +65,16 @@ const TareaState = props => {
     }
 
     // Eliminar tarea
-    const fnEliminarTarea = (id) => {
-        dispatch({
-            type: ELIMINAR_TAREA,
-            payload: id
-        })
-    }
-
-    // Cambiando el estado de las tareas
-    const fnCambioEstado = (tarea) => {
-        dispatch({
-            type: ESTADO_TAREA,
-            payload: tarea
-        })
+    const fnEliminarTarea = async (id, proyecto) => {
+        try {
+            await clienteAxios.delete(`/api/tareas/${id}`,{ params: { proyecto }});
+            dispatch({
+                type: ELIMINAR_TAREA,
+                payload: id
+            })
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     // Obtener la tarea actual
@@ -91,11 +86,16 @@ const TareaState = props => {
     }
 
     // Modificamos una tarea
-    const fnModificarTarea = tarea => {
-        dispatch({
-            type: MODIFICAR_TAREA,
-            payload: tarea
-        })
+    const fnModificarTarea = async tarea => {
+        try{
+            const resultado = await clienteAxios.put(`/api/tareas/${tarea._id}`, tarea);
+            dispatch({
+                type: MODIFICAR_TAREA,
+                payload: resultado.data.tarea
+            })
+        }catch(error){
+            console.log(error)
+        }
     }
 
     // Eliminamos la tarea seleccionada
@@ -115,7 +115,6 @@ const TareaState = props => {
                 fnAgregarTarea: fnAgregarTarea,
                 fnValidarTarea: fnValidarTarea,
                 fnEliminarTarea: fnEliminarTarea,
-                fnCambioEstado: fnCambioEstado,
                 fnObtenerTarea: fnObtenerTarea,
                 fnModificarTarea: fnModificarTarea,
                 fnEliminaTareaSeleccionada: fnEliminaTareaSeleccionada
