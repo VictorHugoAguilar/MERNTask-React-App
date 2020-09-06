@@ -1,4 +1,5 @@
 # MERNTask-React-App
+Aplicación de gestión de tareas por usuarios, donde cada usuario prodrá gestionar sus proyectos, y dentro de cada proyecto gestionar las tareas del mismo, con un estado de las mismas.
 Aplicación realizadas utilizando Node con express para el servidor para el backend, como Base de Datos utilizamos MongoDB, para el frontal utilizamos React.
 
 # Levantar la App primero levantamos el Backend
