@@ -18,7 +18,7 @@ const ListadoProyectos = () => {
     // Cargamos los proyectos en el momento de carga de los componentes
     useEffect(() => {
         // comprobamos si salta una alerta
-        if(mensaje){
+        if (mensaje) {
             fnMostrarAlerta(mensaje.msg, mensaje.categoria);
         }
 
@@ -33,7 +33,7 @@ const ListadoProyectos = () => {
         <ul className="listado-proyectos">
 
             {
-                alerta && ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> )
+                alerta && (<div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>)
             }
             <TransitionGroup>
                 {proyectos?.map((proyecto) => (
