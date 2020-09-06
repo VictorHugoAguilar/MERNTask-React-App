@@ -7,11 +7,15 @@ const Barra = () => {
     // extraer la informacion del context de autentificacion
     const authContext = useContext(AuthContext);
     // extraemos la funcion del authcontext
-    const { usuario, fnUsuarioAutenticado } = authContext;
+    const { usuario, fnUsuarioAutenticado, fnCerrarSession } = authContext;
 
     useEffect(() => {
         fnUsuarioAutenticado();
     }, []);
+
+    const cerrarSesion = () => {
+        fnCerrarSession();
+    };
 
     return (
         <header className="app-header">
@@ -20,7 +24,10 @@ const Barra = () => {
             </p>)
             }
             <nav className="nav-principal">
-                <a href="#!">Cerrar Sesión</a>
+                <button
+                    className="btn btn-blank cerrar-sesion"
+                    onClick={cerrarSesion}
+                    >Cerrar Sesión</button>
             </nav>
         </header>
     );

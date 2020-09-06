@@ -10,6 +10,9 @@ import TareaState from './context/tareas/tareaState';
 import AlertaState from './context/alertas/alertaState';
 import AuthState from './context/autentificacion/authState';
 
+// Importamos nuestro highComponent para rutas privadas
+import RutaPrivada from './components/rutas/RutaPrivada';
+
 // importamos el token auth
 import tokenAuth from './config/tokenAuth';
 
@@ -29,7 +32,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Login} />
                 <Route exact path="/nueva-cuenta" component={NuevaCuenta} />
-                <Route exact path="/proyectos" component={Proyectos} />
+                <RutaPrivada exact path="/proyectos" component={Proyectos} />
               </Switch>
             </Router>
           </AuthState>
