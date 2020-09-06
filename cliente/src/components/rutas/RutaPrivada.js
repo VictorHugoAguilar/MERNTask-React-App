@@ -1,20 +1,30 @@
-import React, {useContext, useEffect, Component} from 'react';
-import { Route, Redirect} from 'react-router-dom';
+import React, { useContext, useEffect, Component } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import AuthContext from '../../context/autentificacion/authContext';
 
-
-const RutaPrivada = ({ component: Component, ...props}) => {
+/**
+ * Con Este componente de HighComponent logramos que pase primero 
+ * por este componente y este será el que rediriga si el usuario
+ * esta autenticado a un componente en concreto o si lo envia al
+ * componente inicial.
+ * @param {Componente, props} param0 
+ */
+const RutaPrivada = ({ component: Component, ...props }) => {
 
     const authContext = useContext(AuthContext);
-    const { autenticado } = authContext;
+    const { autenticado, cargando, fnUsuarioAutenticado } = authContext;
+
+    useEffect(() => {
+        fnUsuarioAutenticado();
+    }, [])
 
     return (
-        <Route 
-            {...props} 
-            render = { props => !autenticado ?  
+        <Route
+            {...props}
+            render={props => !autenticado && !cargando ?
                 (
                     <Redirect to="/" />
-                ) : 
+                ) :
                 (
                     <Component {...props} />
                 )
@@ -24,5 +34,3 @@ const RutaPrivada = ({ component: Component, ...props}) => {
 }
 
 export default RutaPrivada;
-
-
