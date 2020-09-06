@@ -13,7 +13,7 @@ const FormTarea = () => {
     // extraemos el formulario de proyectoContext
     const tareasContext = useContext(tareaContext);
     // extraemos las tareas del context
-    const { tareaseleccionada, errortarea, fnAgregarTarea, 
+    const { tareaseleccionada, errortarea, fnAgregarTarea,
         fnValidarTarea, fnObtenerTareas, fnModificarTarea,
         fnEliminaTareaSeleccionada } = tareasContext;
 
@@ -57,11 +57,11 @@ const FormTarea = () => {
         }
 
         // Revisamos si es edicion o nueva tarea
-        if(!tareaseleccionada){
+        if (!tareaseleccionada) {
             // agregar la nueva tarea al state
             tarea.proyecto = proyectoActual._id;
             fnAgregarTarea(tarea);
-        }else{
+        } else {
             // modificamos las tarea existente
             fnModificarTarea(tarea);
             // Limpiamos la tarea seleccionada del state
@@ -97,7 +97,7 @@ const FormTarea = () => {
                     <input
                         type="submit"
                         className="btn btn-primario btn-submit btn-block"
-                        value={ tareaseleccionada ? 'Modificar Tarea' : 'Agregar Tarea'}
+                        value={tareaseleccionada ? 'Modificar Tarea' : 'Agregar Tarea'}
                     />
 
                 </div>

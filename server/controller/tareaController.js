@@ -56,7 +56,7 @@ exports.obtenerTareas = async (req, res) => {
     try {
         // console.log(req.body)
         // Extraer el proyecto y controlar si existe
-        const { proyecto } = req.body;
+        const { proyecto } = req.query;
 
         // comprobamos que el proyecto exista
         const proyectoExistente = await Proyecto.findById(proyecto);
@@ -76,7 +76,7 @@ exports.obtenerTareas = async (req, res) => {
         }
 
         // Obtenemos las tareas por proyecto
-        const tareas = await Tarea.find({ proyecto: proyecto });
+        const tareas = await Tarea.find({ proyecto: proyecto }).sort({ creado: -1 });
 
         res.json({ tareas });
 
@@ -153,7 +153,7 @@ exports.actualizarTarea = async (req, res) => {
 exports.eliminarProyecto = async (req, res) => {
     try {
         // Extraer el proyecto y controlar si existe
-        const { proyecto   } = req.body;
+        const { proyecto } = req.body;
 
         // comprobar si la tarea existe
         let tarea = await Tarea.findById(req.params.idTarea);
@@ -183,14 +183,14 @@ exports.eliminarProyecto = async (req, res) => {
         }
 
         // Eliminar la tarea
-        await Tarea.findOneAndRemove( {_id: req.params.idTarea})
+        await Tarea.findOneAndRemove({ _id: req.params.idTarea })
 
         // Devolvemos el mensaje de la eliminación
         res.status(200).json({
             ok: true,
             msg: "La tarea ha sido eliminada"
         })
-         
+
     } catch (error) {
         console.log(error);
         res.status(500).json({

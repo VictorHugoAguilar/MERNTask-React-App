@@ -31,25 +31,31 @@ const TareaState = props => {
     // FUNCIONES
 
     // Obtener las tareas de un poyecto
-    const fnObtenerTareas = proyectoId => {
-        dispatch({
-            type: TAREAS_PROYECTO,
-            payload: proyectoId
-        });
+    const fnObtenerTareas = async proyecto => {
+        try {
+            const resultado = await clienteAxios.get(`/api/tareas/`, { params: { proyecto } });
+            const { tareas } = resultado.data;
+            dispatch({
+                type: TAREAS_PROYECTO,
+                payload: tareas
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // Agregar tarea al proyecto seleccionado
     const fnAgregarTarea = async tarea => {
         try {
             const resultado = await clienteAxios.post('/api/tareas', tarea);
-            console.log(resultado);
+            // console.log(resultado);
             // Insertamos la tarea al estate
             dispatch({
                 type: AGREGAR_TAREA,
                 payload: tarea
             });
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
